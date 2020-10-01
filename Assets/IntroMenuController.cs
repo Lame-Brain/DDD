@@ -5,10 +5,9 @@ using UnityEngine;
 public class IntroMenuController : MonoBehaviour
 {
     public Light fireLight;
+    public GameObject BGThing;
     public float FlickerSpeed;
     private float flPosX, flPosY, flIntensity, counter = 0;
-
-    public AudioSource TEST;
 
     // Start is called before the first frame update
     void Start()
@@ -27,5 +26,13 @@ public class IntroMenuController : MonoBehaviour
             //fireLight.transform.position = new Vector3(flPosX, flPosY, 6.5f);
             fireLight.intensity = flIntensity;
         }
+
+        float y = BGThing.GetComponent<Renderer>().material.mainTextureOffset.y;
+        BGThing.GetComponent<Renderer>().material.mainTextureOffset = new Vector2(0, y - 0.0001f);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
