@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class IntroMenuController : MonoBehaviour
 {
     public Light fireLight;
-    public GameObject BGThing;
+    public GameObject BGThing, charLoadPanel,charLoadContent, characterPanelPF;
     public float FlickerSpeed;
     private float flPosX, flPosY, flIntensity, counter = 0;
 
+    private GameObject[] loadCharList;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -45,10 +48,16 @@ public class IntroMenuController : MonoBehaviour
     public void LoadCharacter()
     {
         SaveLoad.Load();
-        for (int i = 0; i < SaveLoad.savedPCs.Count; i++)
+        if (SaveLoad.savedPCs.Count > 0) 
         {
-            Debug.Log(i + ". another one");
-            Debug.Log(SaveLoad.savedPCs[0].pcName);
+            charLoadPanel.SetActive(true);
+            loadCharList = new GameObject[SaveLoad.savedPCs.Count];
+            for (int i = 0; i < SaveLoad.savedPCs.Count; i++)
+            {
+                Debug.Log(i + ". another one " + SaveLoad.savedPCs[i].pcName);
+                loadCharList[i] = Instantiate(characterPanelPF, charLoadContent.transform);
+                loadCharList[i].GetComponentInChildren<Text>().text = SaveLoad.savedPCs[i].pcName + " the " + SaveLoad.savedPCs[i].pcType;
+            } 
         }
     }
 }

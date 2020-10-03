@@ -267,7 +267,8 @@ public class CharacterCreateManager : MonoBehaviour
         if(pcName != "" && pcType != "" && pcMotivation != "" && xtra == 0)
         {
             Debug.Log("save");
-            new PCharacter(pcName, pcType, pcMotivation, str, dex, iq, wis, per, hlth, aura);
+            PCharacter pc = new PCharacter(pcName, pcType, pcMotivation, str, dex, iq, wis, per, hlth, aura);
+            PCharacter.current = pc;
             SaveLoad.Save();
         }
         else { ErrorPanel.SetActive(true); }
