@@ -9,6 +9,7 @@ public class IntroMenuController : MonoBehaviour
     public Light fireLight;
     public GameObject BGThing, charLoadPanel,charLoadContent, characterPanelPF;
     public float FlickerSpeed;
+    public AudioSource ClickSFX;
     private float flPosX, flPosY, flIntensity, counter = 0;
 
     private GameObject[] loadCharList;
@@ -57,7 +58,15 @@ public class IntroMenuController : MonoBehaviour
                 Debug.Log(i + ". another one " + SaveLoad.savedPCs[i].pcName);
                 loadCharList[i] = Instantiate(characterPanelPF, charLoadContent.transform);
                 loadCharList[i].GetComponentInChildren<Text>().text = SaveLoad.savedPCs[i].pcName + " the " + SaveLoad.savedPCs[i].pcType;
+                int x = i; // This fixes the Closure problem.
+                loadCharList[i].GetComponent<Button>().onClick.AddListener(() => ClickOnLoadCharacterPanel(x));
             } 
         }
+    }
+
+    public void ClickOnLoadCharacterPanel(int num)
+    {
+        ClickSFX.GetComponent<AudioSource>().Play();
+        Debug.Log("Load game for " + SaveLoad.savedPCs[num].pcName);
     }
 }

@@ -259,7 +259,7 @@ RectTransform:
   - {fileID: 1527520606}
   - {fileID: 1588158176}
   m_Father: {fileID: 1944947051}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -8264,7 +8264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1944947051}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1314499764
 GameObject:
@@ -9142,6 +9142,7 @@ MonoBehaviour:
   characterPanelPF: {fileID: 5715624988853539323, guid: 964441e1a5ec5394f8225535642665ec,
     type: 3}
   FlickerSpeed: 5
+  ClickSFX: {fileID: 1384518725}
 --- !u!4 &1543602337
 Transform:
   m_ObjectHideFlags: 0
@@ -9278,7 +9279,7 @@ MonoBehaviour:
         m_MethodName: PlayOneShot
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 3ff565c03df803443bc39618662f1a3e,
+          m_ObjectArgument: {fileID: 8300000, guid: 6ef4e88f6563fbc429275ec3926f5f02,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
@@ -10134,8 +10135,8 @@ RectTransform:
   - {fileID: 208579646}
   - {fileID: 2045257714}
   - {fileID: 949211999}
-  - {fileID: 1302174966}
   - {fileID: 12805279}
+  - {fileID: 1302174966}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
