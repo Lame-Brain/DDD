@@ -6,18 +6,27 @@ using UnityEngine.UI;
 
 public class IntroMenuController : MonoBehaviour
 {
+    public static IntroMenuController MAINMENU;
+
     public Light fireLight;
-    public GameObject BGThing, charLoadPanel,charLoadContent, characterPanelPF;
+    public GameObject BGThing, charLoadPanel,charLoadContent, deleteCharacterConfirmPanel, characterPanelPF;
     public float FlickerSpeed;
     public AudioSource ClickSFX;
     private float flPosX, flPosY, flIntensity, counter = 0;
+    private int CharacterToDelete = -1;
 
     private GameObject[] loadCharList;
     
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        if(MAINMENU == null)
+        {
+            MAINMENU = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     // Update is called once per frame
@@ -52,21 +61,46 @@ public class IntroMenuController : MonoBehaviour
         if (SaveLoad.savedPCs.Count > 0) 
         {
             charLoadPanel.SetActive(true);
-            loadCharList = new GameObject[SaveLoad.savedPCs.Count];
+            loadCharList = new GameObject[SaveLoad.savedPCs.Count];            
             for (int i = 0; i < SaveLoad.savedPCs.Count; i++)
             {
-                Debug.Log(i + ". another one " + SaveLoad.savedPCs[i].pcName);
                 loadCharList[i] = Instantiate(characterPanelPF, charLoadContent.transform);
                 loadCharList[i].GetComponentInChildren<Text>().text = SaveLoad.savedPCs[i].pcName + " the " + SaveLoad.savedPCs[i].pcType;
                 int x = i; // This fixes the Closure problem.
                 loadCharList[i].GetComponent<Button>().onClick.AddListener(() => ClickOnLoadCharacterPanel(x));
+                loadCharList[i].GetComponent<DeleteCharacterButton>().ButtonIndex = i;
             } 
         }
+    }
+    public void LoadCharacterPanelClosed()
+    {
+        GameObject[] killThemWithFire = GameObject.FindGameObjectsWithTag("LoadCharacterEntryPanel");
+        foreach(GameObject them in killThemWithFire) Destroy(them);
+        charLoadPanel.SetActive(false);
     }
 
     public void ClickOnLoadCharacterPanel(int num)
     {
+        GameManager.PARTY.Clear();
         ClickSFX.GetComponent<AudioSource>().Play();
-        Debug.Log("Load game for " + SaveLoad.savedPCs[num].pcName);
+        GameManager.PARTY.Add(SaveLoad.savedPCs[num]);
+        SceneManager.LoadScene("ThelmoreTown");
+    }
+
+    public void DeleteCharacterConfirmPanel(int n)
+    {
+        CharacterToDelete = n;
+        deleteCharacterConfirmPanel.SetActive(true);
+    }
+    public void DeleteCharacter()
+    {
+        if (CharacterToDelete > -1)
+        {
+            SaveLoad.savedPCs.RemoveAt(CharacterToDelete);
+            SaveLoad.UpdateSave();
+            deleteCharacterConfirmPanel.SetActive(false);
+            LoadCharacterPanelClosed();
+        }
+        else Debug.Log("ERROR! INVALID CHARACTER REFERENCE WHEN DELETING");
     }
 }

@@ -267,9 +267,12 @@ public class CharacterCreateManager : MonoBehaviour
         if(pcName != "" && pcType != "" && pcMotivation != "" && xtra == 0)
         {
             Debug.Log("save");
-            PCharacter pc = new PCharacter(pcName, pcType, pcMotivation, str, dex, iq, wis, per, hlth, aura);
+            PCharacter pc = new PCharacter(pcName, pcType, pcMotivation, str, dex, iq, wis, per, hlth, aura, face);
             PCharacter.current = pc;
             SaveLoad.Save();
+            GameManager.PARTY.Clear();
+            GameManager.PARTY.Add(pc);
+            SceneManager.LoadScene("ThelmoreTown");
         }
         else { ErrorPanel.SetActive(true); }
     }

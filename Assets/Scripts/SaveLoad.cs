@@ -11,6 +11,16 @@ public static class SaveLoad
     public static void Save()
     {
         savedPCs.Add(PCharacter.current);
+        foreach (PCharacter toon in savedPCs) toon.index = savedPCs.IndexOf(toon);
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/saves.ddd");
+        bf.Serialize(file, SaveLoad.savedPCs);
+        file.Close();
+    }
+
+    public static void UpdateSave()
+    {
+        foreach (PCharacter toon in savedPCs) toon.index = savedPCs.IndexOf(toon);
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saves.ddd");
         bf.Serialize(file, SaveLoad.savedPCs);

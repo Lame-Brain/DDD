@@ -131,6 +131,8 @@ public class ThelmoreManager : MonoBehaviour
         if (day == 23) dayOutput = "the 23rd day ";
         if(month == 0) dayOutput = "of the <color=white>THE WINTER SOLSTICE</color> ";
         TimeText.text = timeOutput + dayOutput + stringOutput;
+
+        InfoText.text = GameManager.PARTY[0].pcName + " has index " + GameManager.PARTY[0].index.ToString();
     }
 
     public void AdvanceMonth()
@@ -138,5 +140,10 @@ public class ThelmoreManager : MonoBehaviour
         day = 1;
         month++;
         if (month > 17) month = 0;
+    }
+
+    public void NavigateBacktoMainScreen()
+    {
+        SceneManager.LoadScene("IntroMenuScene");
     }
 }

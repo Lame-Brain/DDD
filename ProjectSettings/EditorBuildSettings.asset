@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CharacterCreationScene.unity
     guid: 0ecfeb67fe1c6cc43b298968dde0a799
+  - enabled: 1
+    path: Assets/Scenes/ThelmoreTown.unity
+    guid: 4679809df05f14d4f9743389eb4b60a8
   m_configObjects: {}
