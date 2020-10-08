@@ -6,144 +6,191 @@ using UnityEngine.UI;
 
 public class ThelmoreManager : MonoBehaviour
 {
+    public GameObject MenuPanel, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton;
+    public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark,
+        Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright;
     public Text InfoText, TimeText;
-    private int selectedBuilding, time = 0, day = 1, month = 0;
-       
+
+    private int storeSelected = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        InitThelmore();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Display Time, Day, and Month correctly.
-        string timeOutput = "";
-        if (time > 11) { time = 0; day++; }
-        if (time == 0) timeOutput = "<color=blue>Early Morning</color> ";
-        if (time > 0 && time < 3) TimeText.text = "<color=yellow>Morning</color> ";
-        if (time == 3) timeOutput = "<color=blue>Noon</color> ";
-        if (time > 4 && time < 6) timeOutput = "<color=cyan>Afternoon</color> ";
-        if (time == 6) TimeText.text = "<color=magenta>Sunset</color> ";
-        if (time > 6 && time < 9) timeOutput = "<color=teal>Early Night</color> ";
-        if (time == 9) TimeText.text = "<color=black>Midnight</color> ";
-        if (time > 9 && time < 12) timeOutput = "<color=darkblue>Late Night</color> ";
+        //TimeManager.AdvanceTime(0.25f);
+        TimeText.text = TimeManager.HOUR + TimeManager.DAY + TimeManager.MONTH;
 
-        string stringOutput = "";
-        if (month == 0)
-        {
-            stringOutput += "";
-            if (day > 1) AdvanceMonth();
-        }
-        if (month == 1)
-        {
-            stringOutput += "<color=magenta>Holy to GREAT MOTHER</color>";
-            if (day > 4) AdvanceMonth();
-        }
-        if (month == 2)
-        {
-            stringOutput += "of the <color=white>Month of UL</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 3)
-        {
-            stringOutput += "of the <color=white>Month of NIOTL</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 4)
-        {
-            stringOutput += "of the <color=white>Month of OZTOZ</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 5)
-        {
-            stringOutput += "of <color=magenta>the Spring Equinox</color>";
-            if (day > 7) AdvanceMonth();
-        }
-        if (month == 6)
-        {
-            stringOutput += "of the <color=lime>Month of FOTA</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 7)
-        {
-            stringOutput += "of the <color=lime>Month of ADAR</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 8)
-        {
-            stringOutput += "of the <color=lime>Month of VIUNA</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 9)
-        {
-            stringOutput += "of <color=magenta>the Summer Solstice</color>";
-            if (day > 6) AdvanceMonth();
-        }
-        if (month == 10)
-        {
-            stringOutput += "of the <color=yellow>Month of IAMUS</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 11)
-        {
-            stringOutput += "of the <color=yellow>Month of SAMDIOME</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 12)
-        {
-            stringOutput += "of the <color=yellow>Month of ELIUS</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 13)
-        {
-            stringOutput += "of <color=magenta>the Autumn Equinox</color>";
-            if (day > 7) AdvanceMonth();
-        }
-        if (month == 14)
-        {
-            stringOutput += "of the <color=brown>Month ZEDIA</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 15)
-        {
-            stringOutput += "of the <color=brown>Month of YNARUS</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 16)
-        {
-            stringOutput += "of the <color=brown>Month of RANERA</color>";
-            if (day > 28) AdvanceMonth();
-        }
-        if (month == 17)
-        {
-            stringOutput += "<color=magenta>Holy to the WISE CRONE</color>";
-            if (day > 4) AdvanceMonth();
-        }
-        string dayOutput = "the " + day + "th day ";
-        if (day == 1) dayOutput = "the 1st day ";
-        if (day == 2) dayOutput = "the 2nd day ";
-        if (day == 3) dayOutput = "the 3rd day ";
-        if (day == 21) dayOutput = "the 21st day ";
-        if (day == 22) dayOutput = "the 22nd day ";
-        if (day == 23) dayOutput = "the 23rd day ";
-        if(month == 0) dayOutput = "of the <color=white>THE WINTER SOLSTICE</color> ";
-        TimeText.text = timeOutput + dayOutput + stringOutput;
+        if (storeSelected == 0 && EnterButton.activeSelf) EnterButton.SetActive(false);
+        if (storeSelected > 0 && !EnterButton.activeSelf) EnterButton.SetActive(true);
 
-        InfoText.text = GameManager.PARTY[0].pcName + " has index " + GameManager.PARTY[0].index.ToString();
+/*        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Debug.Log("TIME!");
+            TimeManager.AdvanceTime(15f);
+        } */
     }
 
-    public void AdvanceMonth()
+    public void InitThelmore()
     {
-        day = 1;
-        month++;
-        if (month > 17) month = 0;
+        TimeManager.AdvanceTime(0f);
     }
 
     public void NavigateBacktoMainScreen()
     {
         SceneManager.LoadScene("IntroMenuScene");
+    }
+
+    public void ToggleMenuPanel()
+    {
+        MenuPanel.SetActive(!MenuPanel.activeSelf);
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+        InfoText.text = "";
+        storeSelected = 0;
+    }
+
+    public void TavinsFlagonSelected()
+    {
+        //Set all other buttons back to Non-Selected status
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        //Set Tavin's Flagon Button to selected status
+        TavernButton.GetComponent<Image>().sprite = Tavern_Bright;
+
+        //Update Info text with information about Tavin's Flagon
+        InfoText.text = "Tavin's Flagon is a friendly tavern where you can get a drink, relax and listen to rumors, collect information, and meet fellow adventurers.";
+
+        //Set Store_Selected variable to Tavin's Flagon
+        storeSelected = 1;        
+    }
+    public void StagNBoarSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        InnButton.GetComponent<Image>().sprite = Inn_Bright;
+
+        InfoText.text = "The Stag & Boar Inn is Thelmore's oldest and only Inn. Come here to stay relax in the common room or stay the night in a clean bed. The Stag & Boar also has a full kitchen, and is an excellent place for meals that are higher quality than trail rations.";
+
+        storeSelected = 2;
+    }
+    public void BankSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        BankButton.GetComponent<Image>().sprite = Bank_Bright;
+
+        InfoText.text = "The First Bank of Eragor is the realm's bank. As Thelmore is a crossroads town, this branch boasts a full vault with the best protections King Eragor's Wizards could conjure. A perfect place to store any wealth that you would rather not risk carrying on your person.";
+
+        storeSelected = 3;
+    }
+    public void ADARTempleSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        TempleButton.GetComponent<Image>().sprite = Temple_Bright;
+
+        InfoText.text = "The humans of Atania worship many gods, but in Thelmore, ADAR is the primary deity. Still, shrines to the other gods are housed in ADAR's temple, and no worshipers are turned away by the clerics that serve in the Temple.";
+
+        storeSelected = 4;
+    }
+    public void BlackSmithSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        SmithButton.GetComponent<Image>().sprite = Smith_Bright;
+
+        InfoText.text = "Not every blacksmith can work with weapons and armor, but Thelmore's blacksmith has risen to the challenge of Adventurers flooding the town, and is proud to turn out arms and armor that rival the expensive armorsmiths of larger cities.";
+
+        storeSelected = 5;
+    }
+    public void VoncarSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Bright;
+
+        InfoText.text = "Voncar's Mysterium is an odd place, but it is the only place in Thelmore to find magical supplies and advice.";
+
+        storeSelected = 6;
+    }
+    public void ToolShopSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Bright;
+
+        InfoText.text = "Adventurers wielding steel and magic can nevertheless be defeated a simple lack of rope. This toolshop should have whatever miscellanous supplies and tools that you need.";
+
+        storeSelected = 7;
+    }
+    public void WellSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+
+        WellButton.GetComponent<Image>().sprite = Well_Bright;
+
+        InfoText.text = "This is where the fateful well that breached the <color=red>DEADLY DARK DEEPS</color> was being dug. It is now enclosed in a wall and guarded, night and day. Officially, no one is allowed through. Unofficially, you can buy passage for a small fee to the guard on duty.";
+
+        storeSelected = 8;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PCharacter
 {
     public static PCharacter current;
-    public string pcName, pcType, pcMotivation;
+    public string pcName, pcType, pcMotivation, pcStatus;
     public int index, str, dex, iq, wis, per, hlth, aura, face;
     public int HP, wounds, firstAid, MP, burnOut, enervate;
     public int gold, head, body, legs, arms, hand1, hand2, finger1, finger2, belt, boots;
@@ -16,6 +16,7 @@ public class PCharacter
     public PCharacter(string nam, string typ, string mot, int in1, int in2, int in3, int in4, int in5, int in6, int in7, int in8)
     {
         pcName = nam; pcType = typ; pcMotivation = mot;
+        pcStatus = "Ready";
         str = in1;
         dex = in2;
         iq = in3;

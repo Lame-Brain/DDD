@@ -69,6 +69,7 @@ public class IntroMenuController : MonoBehaviour
                 int x = i; // This fixes the Closure problem.
                 loadCharList[i].GetComponent<Button>().onClick.AddListener(() => ClickOnLoadCharacterPanel(x));
                 loadCharList[i].GetComponent<DeleteCharacterButton>().ButtonIndex = i;
+                if (SaveLoad.savedPCs[i].pcStatus != "Ready") loadCharList[i].SetActive(false);
             } 
         }
     }
