@@ -818,7 +818,7 @@ GameObject:
   - component: {fileID: 212687434}
   - component: {fileID: 212687433}
   m_Layer: 5
-  m_Name: Text
+  m_Name: MoneyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: $money
+  m_Text: FUCK YOU
 --- !u!222 &212687434
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -901,7 +901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &232680233
 RectTransform:
   m_ObjectHideFlags: 0
@@ -916,9 +916,9 @@ RectTransform:
   m_Father: {fileID: 57791810}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 12.5, y: -15}
   m_SizeDelta: {x: 25, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &232680234
@@ -2777,7 +2777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &798896820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2792,9 +2792,9 @@ RectTransform:
   m_Father: {fileID: 542778067}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 12.5, y: -10}
   m_SizeDelta: {x: 25, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &798896821
@@ -4312,6 +4312,7 @@ GameObject:
   - component: {fileID: 1384588537}
   - component: {fileID: 1384588539}
   - component: {fileID: 1384588538}
+  - component: {fileID: 1384588540}
   m_Layer: 5
   m_Name: Status Bar
   m_TagString: Untagged
@@ -4378,6 +4379,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384588536}
   m_CullTransparentMesh: 0
+--- !u!114 &1384588540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384588536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c195ab2272fe9046858d0f2cb0524d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HPBar:
+  - {fileID: 798896819}
+  - {fileID: 1123482808}
+  - {fileID: 1789658416}
+  - {fileID: 1770265782}
+  - {fileID: 175159402}
+  - {fileID: 1939926003}
+  - {fileID: 1309653326}
+  - {fileID: 2104031532}
+  - {fileID: 868864129}
+  MPBar:
+  - {fileID: 232680232}
+  - {fileID: 1227574388}
+  - {fileID: 394007654}
+  - {fileID: 184010886}
+  - {fileID: 491756373}
+  - {fileID: 155391840}
+  - {fileID: 662458452}
+  - {fileID: 132830826}
+  - {fileID: 1875318528}
+  hpBarFull: {fileID: -6937122563872544080, guid: f8c7c75020d959b4aa955fdcbb74e53b,
+    type: 3}
+  hpBarDinged: {fileID: -9164235723650724262, guid: f8c7c75020d959b4aa955fdcbb74e53b,
+    type: 3}
+  hpBarHalf: {fileID: -8897510127817460088, guid: f8c7c75020d959b4aa955fdcbb74e53b,
+    type: 3}
+  hpBarEmpty: {fileID: 1099695529560568909, guid: f8c7c75020d959b4aa955fdcbb74e53b,
+    type: 3}
+  mpBarFull: {fileID: 959747713654740658, guid: 7ef7fd92ced72ba4792a5b56bc9c4f84,
+    type: 3}
+  mpBarDinged: {fileID: 684376679190793220, guid: 7ef7fd92ced72ba4792a5b56bc9c4f84,
+    type: 3}
+  mpBarHalf: {fileID: 6517145612655091068, guid: 7ef7fd92ced72ba4792a5b56bc9c4f84,
+    type: 3}
+  mpBarEmpty: {fileID: -3006677947246509903, guid: 7ef7fd92ced72ba4792a5b56bc9c4f84,
+    type: 3}
+  barNull: {fileID: 21300000, guid: 96319ff9b690210449fb44bb0326547f, type: 3}
+  moneyTxt: {fileID: 212687433}
 --- !u!1 &1414726798
 GameObject:
   m_ObjectHideFlags: 0
@@ -4780,6 +4831,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568469076}
   m_CullTransparentMesh: 0
+--- !u!1 &1596985140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1596985142}
+  - component: {fileID: 1596985141}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1596985141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596985140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82688ad59a9c54744918048862dc8995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1596985142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596985140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1638228426
 GameObject:
   m_ObjectHideFlags: 0
@@ -5371,6 +5465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MenuPanel: {fileID: 831162725}
+  StatusBar: {fileID: 1384588536}
   EnterButton: {fileID: 1117216894}
   TavernButton: {fileID: 405680526}
   InnButton: {fileID: 638001406}

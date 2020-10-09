@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class GameManager : MonoBehaviour
             GAME = this;
             DontDestroyOnLoad(GAME);
             Initilize();
+            if (SceneManager.GetActiveScene().name == "ThelmoreTown")
+            {
+                SaveLoad.Load();
+                PARTY.Add(SaveLoad.savedPCs[0]);
+            }
         }
         else
         {

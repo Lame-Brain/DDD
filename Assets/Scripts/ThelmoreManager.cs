@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ThelmoreManager : MonoBehaviour
 {
-    public GameObject MenuPanel, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton;
+    public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton;
     public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark,
         Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright;
     public Text InfoText, TimeText;
@@ -39,6 +39,7 @@ public class ThelmoreManager : MonoBehaviour
     public void InitThelmore()
     {
         TimeManager.AdvanceTime(0f);
+        StatusBar.GetComponent<StatusBarManager>().UpdateStatusBar();
     }
 
     public void NavigateBacktoMainScreen()
