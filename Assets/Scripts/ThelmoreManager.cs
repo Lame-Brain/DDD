@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class ThelmoreManager : MonoBehaviour
 {
-    public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton;
-    public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark,
-        Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright;
+    public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton, RoadButton, BarracksButton, TownHallButton;
+    public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark, Road_Dark, Barracks_Dark, TownHall_Dark,
+        Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright, Road_Bright, Barracks_Bright, TownHall_Bright;
     public Text InfoText, TimeText;
 
+    private bool showTavern, showInn, showBank, showTemple, showSmith, showVoncar, showItemShop, showWell, showRoad, showBarracks, showTownHall;
     private int storeSelected = 0;
 
 
@@ -29,11 +30,44 @@ public class ThelmoreManager : MonoBehaviour
         if (storeSelected == 0 && EnterButton.activeSelf) EnterButton.SetActive(false);
         if (storeSelected > 0 && !EnterButton.activeSelf) EnterButton.SetActive(true);
 
-/*        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Debug.Log("TIME!");
-            TimeManager.AdvanceTime(15f);
-        } */
+        if (!showTavern && TavernButton.activeSelf) TavernButton.SetActive(false);
+        if (showTavern && !TavernButton.activeSelf) TavernButton.SetActive(true);
+
+        if (!showInn && InnButton.activeSelf) InnButton.SetActive(false);
+        if (showInn && !InnButton.activeSelf) InnButton.SetActive(true);
+
+        if (!showBank && BankButton.activeSelf) BankButton.SetActive(false);
+        if (showBank && !BankButton.activeSelf) BankButton.SetActive(true);
+
+        if (!showTemple && TempleButton.activeSelf) TempleButton.SetActive(false);
+        if (showTemple && !TempleButton.activeSelf) TempleButton.SetActive(true);
+
+        if (!showSmith && SmithButton.activeSelf) SmithButton.SetActive(false);
+        if (showSmith && !SmithButton.activeSelf) SmithButton.SetActive(true);
+
+        if (!showVoncar && VoncarButton.activeSelf) VoncarButton.SetActive(false);
+        if (showVoncar && !VoncarButton.activeSelf) VoncarButton.SetActive(true);
+
+        if (!showItemShop && ItemShopButton.activeSelf) ItemShopButton.SetActive(false);
+        if (showItemShop && !ItemShopButton.activeSelf) ItemShopButton.SetActive(true);
+
+        if (!showWell && WellButton.activeSelf) WellButton.SetActive(false);
+        if (showWell && !WellButton.activeSelf) WellButton.SetActive(true);
+
+        if (!showRoad && RoadButton.activeSelf) RoadButton.SetActive(false);
+        if (showRoad && !RoadButton.activeSelf) RoadButton.SetActive(true);
+
+        if (!showBarracks && BarracksButton.activeSelf) BarracksButton.SetActive(false);
+        if (showBarracks && !BarracksButton.activeSelf) BarracksButton.SetActive(true);
+
+        if (!showTownHall && TownHallButton.activeSelf) TownHallButton.SetActive(false);
+        if (showTownHall && !TownHallButton.activeSelf) TownHallButton.SetActive(true);
+
+        /*        if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    Debug.Log("TIME!");
+                    TimeManager.AdvanceTime(15f);
+                } */
     }
 
     public void InitThelmore()
@@ -58,6 +92,9 @@ public class ThelmoreManager : MonoBehaviour
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
         InfoText.text = "";
         storeSelected = 0;
     }
@@ -72,6 +109,9 @@ public class ThelmoreManager : MonoBehaviour
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         //Set Tavin's Flagon Button to selected status
         TavernButton.GetComponent<Image>().sprite = Tavern_Bright;
@@ -91,6 +131,9 @@ public class ThelmoreManager : MonoBehaviour
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         InnButton.GetComponent<Image>().sprite = Inn_Bright;
 
@@ -107,6 +150,9 @@ public class ThelmoreManager : MonoBehaviour
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         BankButton.GetComponent<Image>().sprite = Bank_Bright;
 
@@ -123,6 +169,9 @@ public class ThelmoreManager : MonoBehaviour
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         TempleButton.GetComponent<Image>().sprite = Temple_Bright;
 
@@ -139,6 +188,9 @@ public class ThelmoreManager : MonoBehaviour
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         SmithButton.GetComponent<Image>().sprite = Smith_Bright;
 
@@ -155,6 +207,9 @@ public class ThelmoreManager : MonoBehaviour
         SmithButton.GetComponent<Image>().sprite = Smith_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         VoncarButton.GetComponent<Image>().sprite = Voncar_Bright;
 
@@ -171,6 +226,9 @@ public class ThelmoreManager : MonoBehaviour
         SmithButton.GetComponent<Image>().sprite = Smith_Dark;
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         WellButton.GetComponent<Image>().sprite = Well_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Bright;
 
@@ -187,10 +245,70 @@ public class ThelmoreManager : MonoBehaviour
         SmithButton.GetComponent<Image>().sprite = Smith_Dark;
         VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
         ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
 
         WellButton.GetComponent<Image>().sprite = Well_Bright;
 
         InfoText.text = "This is where the fateful well that breached the <color=red>DEADLY DARK DEEPS</color> was being dug. It is now enclosed in a wall and guarded, night and day. Officially, no one is allowed through. Unofficially, you can buy passage for a small fee to the guard on duty.";
+
+        storeSelected = 8;
+    }
+    public void RoadSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
+
+        RoadButton.GetComponent<Image>().sprite = Road_Bright;
+
+        InfoText.text = "One of the Three main roads leaving Thelmore.";
+
+        storeSelected = 8;
+    }
+    public void BarracksSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Dark;
+
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Bright;
+
+        InfoText.text = "Thelmore has a town guard, although it is stretched quite thin with recent events and the influx of Adventurers that has caused. Still, here is where the best fighters in town can be found, training themselves for action.";
+
+        storeSelected = 8;
+    }
+    public void TownHallSelected()
+    {
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InnButton.GetComponent<Image>().sprite = Inn_Dark;
+        BankButton.GetComponent<Image>().sprite = Bank_Dark;
+        TempleButton.GetComponent<Image>().sprite = Temple_Dark;
+        SmithButton.GetComponent<Image>().sprite = Smith_Dark;
+        VoncarButton.GetComponent<Image>().sprite = Voncar_Dark;
+        ItemShopButton.GetComponent<Image>().sprite = ItemShop_Dark;
+        RoadButton.GetComponent<Image>().sprite = Road_Dark;
+        BarracksButton.GetComponent<Image>().sprite = Barracks_Dark;
+        WellButton.GetComponent<Image>().sprite = Well_Dark;
+
+        TownHallButton.GetComponent<Image>().sprite = TownHall_Bright;
+
+        InfoText.text = "This is Thelmore's seat of political power. The Govenor whose office is housed in this building is a representative of King Eragor himself, and member of the Kingdom's nobility.";
 
         storeSelected = 8;
     }

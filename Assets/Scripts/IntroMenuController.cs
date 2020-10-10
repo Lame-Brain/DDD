@@ -82,9 +82,9 @@ public class IntroMenuController : MonoBehaviour
 
     public void ClickOnLoadCharacterPanel(int num)
     {
-        GameManager.PARTY.Clear();
+        Party.GROUP.Clear();
         ClickSFX.GetComponent<AudioSource>().Play();
-        GameManager.PARTY.Add(SaveLoad.savedPCs[num]);
+        Party.GROUP.Add(SaveLoad.savedPCs[num]);
         SceneManager.LoadScene("ThelmoreTown");
     }
 

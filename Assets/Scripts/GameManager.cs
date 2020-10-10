@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager GAME;
-    public static List<PCharacter> PARTY;
 
     //First thing called
     void Awake()
@@ -19,7 +18,7 @@ public class GameManager : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "ThelmoreTown")
             {
                 SaveLoad.Load();
-                PARTY.Add(SaveLoad.savedPCs[0]);
+                Party.GROUP.Add(SaveLoad.savedPCs[0]);
             }
         }
         else
@@ -42,6 +41,6 @@ public class GameManager : MonoBehaviour
 
     public void Initilize()
     {
-        PARTY = new List<PCharacter>();
+        Party.GROUP = new List<PCharacter>();
     }
 }

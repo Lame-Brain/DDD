@@ -33,7 +33,7 @@ public class PCharacter
         for (int i = 0; i < aura; i++) MP += Random.Range(1, maxMP);
         wounds = 0; firstAid = 0;
         burnOut = 0; enervate = 0;
-        gold = Random.Range(-5, 15); if (gold < 0) gold = 0;
+        gold = Random.Range(-5, 15); if (gold < 2) gold = 2;
         head = 1; body = 1; legs = 0; arms = 0; hand1 = 1; hand2 = 0; finger1 = 0; finger2 = 0; belt = 0; boots = 0; spellbook = 0; //Start with up to 15 gold, traveller's hood, traveller's robe, and traveller's staff.
         magicSevered = false;
         if(pcType == "Dwarf") { magicResist = 25.0f; }
