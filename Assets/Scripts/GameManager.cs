@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "ThelmoreTown")
             {
                 SaveAndLoad.Load();
-                //SaveGame.GROUP.Add(SaveAndLoad.savedPCs[0]);
+                SaveGame.current = SaveAndLoad.savedGames[0];
             }
         }
         else
@@ -41,6 +41,5 @@ public class GameManager : MonoBehaviour
 
     public void Initilize()
     {
-        SaveGame.GROUP = new List<PCharacter>();
     }
 }

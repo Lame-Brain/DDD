@@ -37,7 +37,6 @@ public class IntroMenuController : MonoBehaviour
         {
             counter = 0;
             flPosX = Random.Range(-1f, 1f); flPosY = Random.Range(0f, 10f); flIntensity = Random.Range(1f, 3f);
-            //fireLight.transform.position = new Vector3(flPosX, flPosY, 6.5f);
             fireLight.intensity = flIntensity;
         }
 
@@ -65,11 +64,11 @@ public class IntroMenuController : MonoBehaviour
             for (int i = 0; i < SaveAndLoad.savedGames.Count; i++)
             {
                 loadCharList[i] = Instantiate(characterPanelPF, charLoadContent.transform);
-                loadCharList[i].GetComponentInChildren<Text>().text = SaveGame.GROUP[0].pcName + " the " + SaveGame.GROUP[0].pcType;
+                loadCharList[i].GetComponentInChildren<Text>().text = SaveGame.current.GROUP[0].pcName + " the " + SaveGame.current.GROUP[0].pcType;
                 int x = i; // This fixes the Closure problem.
                 loadCharList[i].GetComponent<Button>().onClick.AddListener(() => ClickOnLoadCharacterPanel(x));
                 loadCharList[i].GetComponent<DeleteCharacterButton>().ButtonIndex = i;
-                //if (SaveAndLoad.savedPCs[i].pcStatus != "Ready") loadCharList[i].SetActive(false);
+                if (SaveAndLoad.savedGames[i].GROUP[0].pcStatus != "Ready") loadCharList[i].SetActive(false);
             } 
         }
     }
@@ -82,9 +81,8 @@ public class IntroMenuController : MonoBehaviour
 
     public void ClickOnLoadCharacterPanel(int num)
     {
-        SaveGame.GROUP.Clear();
         ClickSFX.GetComponent<AudioSource>().Play();
-        //SaveGame.GROUP.Add(SaveAndLoad.savedGames[num]; <----------------------------------------------------------------------------------------------------------------------------------
+        SaveGame.current = SaveAndLoad.savedGames[num];
         SceneManager.LoadScene("ThelmoreTown");
     }
 
@@ -97,7 +95,7 @@ public class IntroMenuController : MonoBehaviour
     {
         if (CharacterToDelete > -1)
         {
-            //SaveAndLoad.savedPCs.RemoveAt(CharacterToDelete);
+            SaveAndLoad.savedGames.RemoveAt(CharacterToDelete);
             SaveAndLoad.UpdateSave();
             deleteCharacterConfirmPanel.SetActive(false);
             LoadCharacterPanelClosed();

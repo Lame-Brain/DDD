@@ -11,7 +11,6 @@ public static class SaveAndLoad
     public static void Save()
     {
         savedGames.Add(SaveGame.current);
-        foreach (SaveGame toon in savedGames) toon.index = savedGames.IndexOf(toon);
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saves.ddd");
         bf.Serialize(file, SaveAndLoad.savedGames);

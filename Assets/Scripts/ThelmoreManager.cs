@@ -77,17 +77,17 @@ public class ThelmoreManager : MonoBehaviour
         TimeManager.AdvanceTime(0f);
         StatusBar.GetComponent<StatusBarManager>().UpdateStatusBar();
 
-        showBank = SaveGame.thelmoreBank;
-        showBarracks = SaveGame.thelmoreBarracks;
-        showInn = SaveGame.thelmoreInn;
-        showRoad = SaveGame.thelmoreRoad;
-        showSmith = SaveGame.thelmoreSmith;
-        showTavern = SaveGame.thelmoreTavern;
-        showTemple = SaveGame.thelmoreTemple;
-        showItemShop = SaveGame.thelmoreToolShop;
-        showTownHall = SaveGame.thelmoreTownHall;
-        showVoncar = SaveGame.thelmoreVoncar;
-        showWell = SaveGame.thelmoreWell;        
+        showBank = SaveGame.current.thelmoreBank;
+        showBarracks = SaveGame.current.thelmoreBarracks;
+        showInn = SaveGame.current.thelmoreInn;
+        showRoad = SaveGame.current.thelmoreRoad;
+        showSmith = SaveGame.current.thelmoreSmith;
+        showTavern = SaveGame.current.thelmoreTavern;
+        showTemple = SaveGame.current.thelmoreTemple;
+        showItemShop = SaveGame.current.thelmoreToolShop;
+        showTownHall = SaveGame.current.thelmoreTownHall;
+        showVoncar = SaveGame.current.thelmoreVoncar;
+        showWell = SaveGame.current.thelmoreWell;        
     }
 
     public void NavigateBacktoMainScreen()
