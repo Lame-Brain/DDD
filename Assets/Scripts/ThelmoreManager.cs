@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class ThelmoreManager : MonoBehaviour
 {
-    public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton, RoadButton, BarracksButton, TownHallButton;
+    public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton, RoadButton, BarracksButton, TownHallButton,
+        TavernPanel;
     public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark, Road_Dark, Barracks_Dark, TownHall_Dark,
         Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright, Road_Bright, Barracks_Bright, TownHall_Bright;
     public Text InfoText, TimeText;
+    public AudioSource ThelmoreMusic, ThelmoreAmbience, TavernMusic, TavernAmbience;
 
     private bool showTavern, showInn, showBank, showTemple, showSmith, showVoncar, showItemShop, showWell, showRoad, showBarracks, showTownHall;
     private int storeSelected = 0;
@@ -74,6 +76,18 @@ public class ThelmoreManager : MonoBehaviour
     {
         TimeManager.AdvanceTime(0f);
         StatusBar.GetComponent<StatusBarManager>().UpdateStatusBar();
+
+        showBank = SaveGame.thelmoreBank;
+        showBarracks = SaveGame.thelmoreBarracks;
+        showInn = SaveGame.thelmoreInn;
+        showRoad = SaveGame.thelmoreRoad;
+        showSmith = SaveGame.thelmoreSmith;
+        showTavern = SaveGame.thelmoreTavern;
+        showTemple = SaveGame.thelmoreTemple;
+        showItemShop = SaveGame.thelmoreToolShop;
+        showTownHall = SaveGame.thelmoreTownHall;
+        showVoncar = SaveGame.thelmoreVoncar;
+        showWell = SaveGame.thelmoreWell;        
     }
 
     public void NavigateBacktoMainScreen()
@@ -122,6 +136,24 @@ public class ThelmoreManager : MonoBehaviour
         //Set Store_Selected variable to Tavin's Flagon
         storeSelected = 1;        
     }
+
+    public void EnterTavinsFlagon()
+    {
+        ThelmoreMusic.Stop();
+        ThelmoreAmbience.Stop();
+        TavernMusic.Play();
+        TavernAmbience.Play();
+        TavernPanel.SetActive(true);
+    }
+    public void ExitTavinsFlagon()
+    {
+        ThelmoreMusic.Play();
+        ThelmoreAmbience.Play();
+        TavernMusic.Stop();
+        TavernAmbience.Stop();
+        TavernPanel.SetActive(false);
+    }
+
     public void StagNBoarSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -311,5 +343,10 @@ public class ThelmoreManager : MonoBehaviour
         InfoText.text = "This is Thelmore's seat of political power. The Govenor whose office is housed in this building is a representative of King Eragor himself, and member of the Kingdom's nobility.";
 
         storeSelected = 8;
+    }
+
+    public void EnterButtonPushed()
+    {
+        if (storeSelected == 1) EnterTavinsFlagon();
     }
 }

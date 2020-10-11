@@ -57,19 +57,19 @@ public class IntroMenuController : MonoBehaviour
 
     public void LoadCharacter()
     {
-        SaveLoad.Load();
-        if (SaveLoad.savedPCs.Count > 0) 
+        SaveAndLoad.Load();
+        if (SaveAndLoad.savedGames.Count > 0) 
         {
             charLoadPanel.SetActive(true);
-            loadCharList = new GameObject[SaveLoad.savedPCs.Count];            
-            for (int i = 0; i < SaveLoad.savedPCs.Count; i++)
+            loadCharList = new GameObject[SaveAndLoad.savedGames.Count];            
+            for (int i = 0; i < SaveAndLoad.savedGames.Count; i++)
             {
                 loadCharList[i] = Instantiate(characterPanelPF, charLoadContent.transform);
-                loadCharList[i].GetComponentInChildren<Text>().text = SaveLoad.savedPCs[i].pcName + " the " + SaveLoad.savedPCs[i].pcType;
+                loadCharList[i].GetComponentInChildren<Text>().text = SaveGame.GROUP[0].pcName + " the " + SaveGame.GROUP[0].pcType;
                 int x = i; // This fixes the Closure problem.
                 loadCharList[i].GetComponent<Button>().onClick.AddListener(() => ClickOnLoadCharacterPanel(x));
                 loadCharList[i].GetComponent<DeleteCharacterButton>().ButtonIndex = i;
-                if (SaveLoad.savedPCs[i].pcStatus != "Ready") loadCharList[i].SetActive(false);
+                //if (SaveAndLoad.savedPCs[i].pcStatus != "Ready") loadCharList[i].SetActive(false);
             } 
         }
     }
@@ -82,9 +82,9 @@ public class IntroMenuController : MonoBehaviour
 
     public void ClickOnLoadCharacterPanel(int num)
     {
-        Party.GROUP.Clear();
+        SaveGame.GROUP.Clear();
         ClickSFX.GetComponent<AudioSource>().Play();
-        Party.GROUP.Add(SaveLoad.savedPCs[num]);
+        //SaveGame.GROUP.Add(SaveAndLoad.savedGames[num]; <----------------------------------------------------------------------------------------------------------------------------------
         SceneManager.LoadScene("ThelmoreTown");
     }
 
@@ -97,8 +97,8 @@ public class IntroMenuController : MonoBehaviour
     {
         if (CharacterToDelete > -1)
         {
-            SaveLoad.savedPCs.RemoveAt(CharacterToDelete);
-            SaveLoad.UpdateSave();
+            //SaveAndLoad.savedPCs.RemoveAt(CharacterToDelete);
+            SaveAndLoad.UpdateSave();
             deleteCharacterConfirmPanel.SetActive(false);
             LoadCharacterPanelClosed();
         }

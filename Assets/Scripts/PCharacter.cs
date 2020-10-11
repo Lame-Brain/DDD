@@ -5,9 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class PCharacter
 {
-    public static PCharacter current;
     public string pcName, pcType, pcMotivation, pcStatus;
-    public int index, str, dex, iq, wis, per, hlth, aura, face;
+    public int str, dex, iq, wis, per, hlth, aura, face;
     public int HP, wounds, firstAid, MP, burnOut, enervate;
     public int gold, head, body, legs, arms, hand1, hand2, finger1, finger2, belt, boots, spellbook;
     public bool magicSevered;

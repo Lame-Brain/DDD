@@ -266,12 +266,13 @@ public class CharacterCreateManager : MonoBehaviour
     {
         if(pcName != "" && pcType != "" && pcMotivation != "" && xtra == 0)
         {
-            Debug.Log("save");
+            Debug.Log("save the Game for the First time");
             PCharacter pc = new PCharacter(pcName, pcType, pcMotivation, str, dex, iq, wis, per, hlth, aura, face);
-            PCharacter.current = pc;
-            SaveLoad.Save();
-            Party.GROUP.Clear();
-            Party.GROUP.Add(pc);
+            SaveGame.GROUP.Clear();
+            SaveGame.GROUP.Add(pc);
+            SaveGame.current = new SaveGame();
+            SaveGame.thelmoreBank = true; SaveGame.thelmoreBarracks = false; SaveGame.thelmoreInn = true; SaveGame.thelmoreRoad = false; SaveGame.thelmoreSmith = true; SaveGame.thelmoreTavern = true; SaveGame.thelmoreTemple = true; SaveGame.thelmoreToolShop = true; SaveGame.thelmoreTownHall = false; SaveGame.thelmoreVoncar = true; SaveGame.thelmoreWell = true;
+            SaveAndLoad.Save();
             SceneManager.LoadScene("ThelmoreTown");
         }
         else { ErrorPanel.SetActive(true); }
