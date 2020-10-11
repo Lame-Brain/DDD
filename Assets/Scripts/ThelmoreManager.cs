@@ -16,6 +16,11 @@ public class ThelmoreManager : MonoBehaviour
     private bool showTavern, showInn, showBank, showTemple, showSmith, showVoncar, showItemShop, showWell, showRoad, showBarracks, showTownHall;
     private int storeSelected = 0;
 
+    //TavinsFlagon Interface variables    
+    public int priceOfAle;
+    public Text TavinsgreetingText, rumorText;
+    public GameObject drinkPanel, drinkButton;
+    private bool drinkbuttonClicked = false;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +75,13 @@ public class ThelmoreManager : MonoBehaviour
                     Debug.Log("TIME!");
                     TimeManager.AdvanceTime(15f);
                 } */
+
+        //TavinsFlagon
+        if (TavernPanel.activeSelf)
+        {
+            if (drinkButton.activeSelf && drinkbuttonClicked) drinkButton.SetActive(false); 
+            if (!drinkButton.activeSelf && !drinkbuttonClicked) drinkButton.SetActive(true);
+        }
     }
 
     public void InitThelmore()
@@ -144,6 +156,8 @@ public class ThelmoreManager : MonoBehaviour
         TavernMusic.Play();
         TavernAmbience.Play();
         TavernPanel.SetActive(true);
+        drinkbuttonClicked = false;
+        TavinsgreetingText.text = "Tavin offers you a drink, it costs " + priceOfAle + " gp.";
     }
     public void ExitTavinsFlagon()
     {
@@ -152,6 +166,12 @@ public class ThelmoreManager : MonoBehaviour
         TavernMusic.Stop();
         TavernAmbience.Stop();
         TavernPanel.SetActive(false);
+        storeSelected = 0;
+    }
+    public void TavinsFlagonDrinkButtonReset() {drinkbuttonClicked = false; }
+    public void TavisFlagonDrink()
+    {
+        drinkbuttonClicked = true;
     }
 
     public void StagNBoarSelected()
@@ -173,6 +193,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 2;
     }
+    public void EnterStagNBoar()
+    {
+
+    }
+    public void ExitStagNBoar()
+    {
+
+    }
+
     public void BankSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -192,6 +221,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 3;
     }
+    public void EnterBank()
+    {
+
+    }
+    public void ExitBank()
+    {
+
+    }
+
     public void ADARTempleSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -211,6 +249,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 4;
     }
+    public void EnterADARTemple()
+    {
+
+    }
+    public void ExitADARTemple()
+    {
+
+    }
+
     public void BlackSmithSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -230,6 +277,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 5;
     }
+    public void EnterBlackSmith()
+    {
+
+    }
+    public void ExitBlackSmith()
+    {
+
+    }
+
     public void VoncarSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -249,6 +305,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 6;
     }
+    public void EnterVoncarShop()
+    {
+
+    }
+    public void ExitVoncarShop()
+    {
+
+    }
+
     public void ToolShopSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -268,6 +333,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 7;
     }
+    public void EnterToolShop()
+    {
+
+    }
+    public void ExitToolShop()
+    {
+
+    }
+
     public void WellSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -287,6 +361,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 8;
     }
+    public void EnterWell()
+    {
+
+    }
+    public void ExitWell()
+    {
+
+    }
+
     public void RoadSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -306,6 +389,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 8;
     }
+    public void EnterRoad()
+    {
+
+    }
+    public void ExitRoad()
+    {
+
+    }
+
     public void BarracksSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -325,6 +417,15 @@ public class ThelmoreManager : MonoBehaviour
 
         storeSelected = 8;
     }
+    public void EnterBarracks()
+    {
+
+    }
+    public void ExitBarracks()
+    {
+
+    }
+
     public void TownHallSelected()
     {
         TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
@@ -343,6 +444,14 @@ public class ThelmoreManager : MonoBehaviour
         InfoText.text = "This is Thelmore's seat of political power. The Govenor whose office is housed in this building is a representative of King Eragor himself, and member of the Kingdom's nobility.";
 
         storeSelected = 8;
+    }
+    public void EnterTownHall()
+    {
+
+    }
+    public void ExitTownHall()
+    {
+
     }
 
     public void EnterButtonPushed()

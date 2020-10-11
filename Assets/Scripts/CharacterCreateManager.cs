@@ -18,7 +18,7 @@ public class CharacterCreateManager : MonoBehaviour
     public int Face;
 
     private string pcName, pcType, pcMotivation;
-    private int face, str, dex, iq, wis, per, hlth, aura, xtra, HP, MP;
+    private int face, str, dex, iq, wis, per, hlth, aura, xtra;
 
     // Start is called before the first frame update
     void Start()
@@ -54,8 +54,6 @@ public class CharacterCreateManager : MonoBehaviour
         hlth = 3;
         aura = 3;
         xtra = 0;
-        HP = 0;
-        MP = 0;
 
         FaceButton = new GameObject[PCFaces.Length];
 
