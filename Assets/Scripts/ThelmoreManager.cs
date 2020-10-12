@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ThelmoreManager : MonoBehaviour
 {
     public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton, RoadButton, BarracksButton, TownHallButton,
-        TavernPanel;
+        TavernPanel, TavernYouArePoorPanel;
     public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark, Road_Dark, Barracks_Dark, TownHall_Dark,
         Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright, Road_Bright, Barracks_Bright, TownHall_Bright;
     public Text InfoText, TimeText;
@@ -86,9 +86,11 @@ public class ThelmoreManager : MonoBehaviour
 
     public void InitThelmore()
     {
+        //Initialize time system
         TimeManager.AdvanceTime(0f);
+        //Initialize status bar
         StatusBar.GetComponent<StatusBarManager>().UpdateStatusBar();
-
+        //Set Store Button bools based on loaded SaveGame
         showBank = SaveGame.current.thelmoreBank;
         showBarracks = SaveGame.current.thelmoreBarracks;
         showInn = SaveGame.current.thelmoreInn;
@@ -157,7 +159,7 @@ public class ThelmoreManager : MonoBehaviour
         TavernAmbience.Play();
         TavernPanel.SetActive(true);
         drinkbuttonClicked = false;
-        TavinsgreetingText.text = "Tavin offers you a drink, it costs " + priceOfAle + " gp.";
+        TavinsgreetingText.text = "Tavin offers you a drink, it costs " + priceOfAle + " gp. You currently have " + SaveGame.current.GROUP[0].gold + " gp.";
     }
     public void ExitTavinsFlagon()
     {
@@ -168,10 +170,26 @@ public class ThelmoreManager : MonoBehaviour
         TavernPanel.SetActive(false);
         storeSelected = 0;
     }
-    public void TavinsFlagonDrinkButtonReset() {drinkbuttonClicked = false; }
+    public void TavinsFlagonDrinkButtonReset() {drinkbuttonClicked = false; rumorText.text = ""; }
     public void TavisFlagonDrink()
     {
-        drinkbuttonClicked = true;
+        if (SaveGame.current.GROUP[0].gold > priceOfAle)
+        {
+            SaveGame.current.GROUP[0].gold -= priceOfAle;
+            drinkbuttonClicked = true;
+            rumorText.text = SaveGame.current.RUMORS[Random.Range(0, (SaveGame.current.RUMORS.Count-1))];
+            foreach(PCharacter hero in SaveGame.current.GROUP)
+            {
+                if (hero.burnOut < 10) hero.burnOut = 0;
+                if (hero.burnOut >= 10) hero.burnOut -= 10;
+                if (hero.wounds < 2) hero.wounds = 0;
+                if (hero.wounds >= 2 && hero.wounds < (hero.HP / 2)) hero.wounds -= 2;
+            }
+        }
+        else
+        {
+            TavernYouArePoorPanel.SetActive(true);
+        }
     }
 
     public void StagNBoarSelected()

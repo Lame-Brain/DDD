@@ -64,7 +64,7 @@ public class IntroMenuController : MonoBehaviour
             for (int i = 0; i < SaveAndLoad.savedGames.Count; i++)
             {
                 loadCharList[i] = Instantiate(characterPanelPF, charLoadContent.transform);
-                loadCharList[i].GetComponentInChildren<Text>().text = SaveGame.current.GROUP[0].pcName + " the " + SaveGame.current.GROUP[0].pcType;
+                loadCharList[i].GetComponentInChildren<Text>().text = SaveAndLoad.savedGames[i].GROUP[0].pcName + " the " + SaveAndLoad.savedGames[i].GROUP[0].pcType;
                 int x = i; // This fixes the Closure problem.
                 loadCharList[i].GetComponent<Button>().onClick.AddListener(() => ClickOnLoadCharacterPanel(x));
                 loadCharList[i].GetComponent<DeleteCharacterButton>().ButtonIndex = i;
@@ -81,6 +81,7 @@ public class IntroMenuController : MonoBehaviour
 
     public void ClickOnLoadCharacterPanel(int num)
     {
+        //This loads the selected game.
         ClickSFX.GetComponent<AudioSource>().Play();
         SaveGame.current = SaveAndLoad.savedGames[num];
         SceneManager.LoadScene("ThelmoreTown");

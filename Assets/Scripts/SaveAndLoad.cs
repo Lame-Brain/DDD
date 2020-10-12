@@ -36,4 +36,19 @@ public static class SaveAndLoad
             file.Close();
         }
     }
+
+    public static void LoadDefaultRumorList()
+    {
+        if (File.Exists(Application.persistentDataPath + "/rumors.txt"))
+        {
+            StreamReader file = new StreamReader(Application.persistentDataPath + "/rumors.txt");
+            while (!file.EndOfStream)
+            {
+                string line = file.ReadLine();
+                SaveGame.current.RUMORS.Add(line);
+            }
+            file.Close();
+        }
+        else { Debug.Log("WARNING! THERE ARE NO RUMORS IN THE PERSISTENT DATA PATH!"); }
+    }
 }
