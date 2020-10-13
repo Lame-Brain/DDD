@@ -10,6 +10,11 @@ public static class SaveAndLoad
 
     public static void Save()
     {
+        if (File.Exists(Application.persistentDataPath + "/saves.ddd"))
+        {
+            savedGames.Clear();
+            Load();
+        }
         savedGames.Add(SaveGame.current);
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saves.ddd");

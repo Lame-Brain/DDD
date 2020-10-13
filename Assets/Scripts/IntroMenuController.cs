@@ -71,6 +71,10 @@ public class IntroMenuController : MonoBehaviour
                 if (SaveAndLoad.savedGames[i].GROUP[0].pcStatus != "Ready") loadCharList[i].SetActive(false);
             } 
         }
+        else
+        {
+            NavigateToCreateCharacter();
+        }
     }
     public void LoadCharacterPanelClosed()
     {

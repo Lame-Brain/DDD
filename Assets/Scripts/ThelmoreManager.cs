@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ThelmoreManager : MonoBehaviour
 {
     public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton, RoadButton, BarracksButton, TownHallButton,
-        TavernPanel, TavernYouArePoorPanel;
+        TavernPanel, TavernYouArePoorPanel, TavernViewCharacterPanel, TavernVCPrefab, TavernCharacterPanelContent;
     public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark, Road_Dark, Barracks_Dark, TownHall_Dark,
         Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright, Road_Bright, Barracks_Bright, TownHall_Bright;
     public Text InfoText, TimeText;
@@ -189,6 +189,24 @@ public class ThelmoreManager : MonoBehaviour
         else
         {
             TavernYouArePoorPanel.SetActive(true);
+        }
+    }
+    public void MeetCharacters()
+    {
+        TavernViewCharacterPanel.SetActive(true);
+        GameObject[] killThemWithFire = GameObject.FindGameObjectsWithTag("LoadCharacterEntryPanel");
+        foreach (GameObject them in killThemWithFire) Destroy(them);
+        GameObject go;
+        for (int i = 0; i < SaveAndLoad.savedGames.Count; i++)
+        {
+            if (SaveAndLoad.savedGames[i] != SaveGame.current)
+            {
+                go = Instantiate(TavernVCPrefab, TavernCharacterPanelContent.transform);
+                go.GetComponent<TavernCharacterButtonController>().index = i;
+                go.GetComponent<TavernCharacterButtonController>().text1.text = SaveAndLoad.savedGames[i].GROUP[0].pcName + " the " + SaveAndLoad.savedGames[i].GROUP[0].pcType + ", Level " + SaveAndLoad.savedGames[i].GROUP[0].GetLevel();
+                go.GetComponent<TavernCharacterButtonController>().text2.text = "Best Trait(s): " + SaveAndLoad.savedGames[i].GROUP[0].GetHighestSkills();
+                go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.pcFace[SaveAndLoad.savedGames[i].GROUP[0].face];
+            }
         }
     }
 

@@ -15,10 +15,10 @@ public class CharacterCreateManager : MonoBehaviour
     public Dropdown TypePicker, MotivationPicker;
     public Text InfoTextOutput, strTextOutput, dexTextOutput, iqTextOutput, wisTextOutput, perTextOutput, hlthTextOutput, auraTextOutput, extraTextOutput;
 
-    public int Face;
+    public int face;
 
     private string pcName, pcType, pcMotivation;
-    private int face, str, dex, iq, wis, per, hlth, aura, xtra;
+    private int str, dex, iq, wis, per, hlth, aura, xtra;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,7 @@ public class CharacterCreateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DisplayFace.sprite = PCFaces[Face];
+        DisplayFace.sprite = PCFaces[face];
         extraTextOutput.text = "Free Points: " + xtra.ToString();
         strTextOutput.text = "Strength Level " + str.ToString();
         dexTextOutput.text = "Dexterity Level " + dex.ToString();
@@ -67,7 +67,7 @@ public class CharacterCreateManager : MonoBehaviour
     }
     public void FacePickerFaceButtonCicked(int num)
     {
-        Face = num;
+        face = num;
         ClickSFX.GetComponent<AudioSource>().Play();
         FacePickerPanel.SetActive(false);
     }
