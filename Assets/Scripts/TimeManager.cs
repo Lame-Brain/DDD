@@ -6,7 +6,7 @@ public static class TimeManager
 {
     public static string HOUR = "", DAY = "", MONTH = "";
     public static float HOUR_FLOAT;
-    private static int DAY_INT = 1, MONTH_INT = 0;
+    public static int DAY_INT = 1, MONTH_INT = 0, YEAR_INT = -4;
 
     public static void AdvanceTime(float v)
     {
@@ -130,6 +130,6 @@ public static class TimeManager
     {
         DAY_INT = 1;
         MONTH_INT++;
-        if (MONTH_INT > 17) MONTH_INT = 0;
+        if (MONTH_INT > 17) { MONTH_INT = 0; YEAR_INT++; }
     }
 }

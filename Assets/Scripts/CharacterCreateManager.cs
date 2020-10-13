@@ -275,6 +275,28 @@ public class CharacterCreateManager : MonoBehaviour
 
             //load rumors
             SaveAndLoad.LoadDefaultRumorList();
+            //Create NPCList
+            int randMot, randTyp, randFac;
+            string tempMot = "", tempTyp = "", tempNam ="";
+            PCharacter[] NPC = new PCharacter[25];
+            for(int i = 0; i < 25; i++)
+            {
+                //Name
+                tempNam = GameManager.GAME.randomName[Random.Range(0, GameManager.GAME.randomName.Count)];
+                //Type
+                randTyp = Random.Range(1, 3);
+                if (randTyp == 1) tempTyp = "Warrior"; if (randTyp == 2) tempTyp = "Mage"; if (randTyp == 3) tempTyp = "Rogue";
+                //Motivation
+                randMot = Random.Range(1, 8);
+                if (randMot == 1) tempMot = "Money"; if (randMot == 2) tempMot = "Power"; if (randMot == 3) tempMot = "Honor"; if (randMot == 4) tempMot = "Glory";
+                if (randMot == 5) tempMot = "Fate"; if (randMot == 6) tempMot = "Duty"; if (randMot == 7) tempMot = "Curiosity"; if (randMot == 4) tempMot = "Bloodlust";
+                //Face
+                randFac = Random.Range(0, 10);
+                //Make NPC
+                NPC[i] = new PCharacter(tempNam, tempTyp, tempMot, randFac);
+                //Add to SaveGame list
+                SaveGame.current.NPCS.Add(NPC[i]);
+            }
 
             SaveAndLoad.Save(); Debug.Log("Saving savegame");
             SceneManager.LoadScene("ThelmoreTown");

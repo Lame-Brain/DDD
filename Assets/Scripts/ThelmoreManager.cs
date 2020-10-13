@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class ThelmoreManager : MonoBehaviour
 {
+    public static ThelmoreManager TOWN;
     public GameObject MenuPanel, StatusBar, EnterButton, TavernButton, InnButton, BankButton, TempleButton, SmithButton, VoncarButton, ItemShopButton, WellButton, RoadButton, BarracksButton, TownHallButton,
-        TavernPanel, TavernYouArePoorPanel, TavernViewCharacterPanel, TavernVCPrefab, TavernCharacterPanelContent;
+        TavernPanel, TavernYouArePoorPanel, TavernViewCharacterPanel, TavernVCPrefab, TavernCharacterPanelContent, TavernAdventureConversationPanel;
     public Sprite Tavern_Dark, Inn_Dark, Bank_Dark, Temple_Dark, Smith_Dark, Voncar_Dark, ItemShop_Dark, Well_Dark, Road_Dark, Barracks_Dark, TownHall_Dark,
         Tavern_Bright, Inn_Bright, Bank_Bright, Temple_Bright, Smith_Bright, Voncar_Bright, ItemShop_Bright, Well_Bright, Road_Bright, Barracks_Bright, TownHall_Bright;
     public Text InfoText, TimeText;
@@ -21,6 +22,9 @@ public class ThelmoreManager : MonoBehaviour
     public Text TavinsgreetingText, rumorText;
     public GameObject drinkPanel, drinkButton;
     private bool drinkbuttonClicked = false;
+
+
+    private int dayLastAdventurerCheck, monthLastAdventurerCheck, yearLastAdventurerCheck;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +80,30 @@ public class ThelmoreManager : MonoBehaviour
                     TimeManager.AdvanceTime(15f);
                 } */
 
+        //NPC Adventurers Check
+        if(TimeManager.DAY_INT > dayLastAdventurerCheck || TimeManager.MONTH_INT > monthLastAdventurerCheck || TimeManager.YEAR_INT > yearLastAdventurerCheck)
+        {
+            dayLastAdventurerCheck = TimeManager.DAY_INT; monthLastAdventurerCheck = TimeManager.MONTH_INT; yearLastAdventurerCheck = TimeManager.YEAR_INT;
+            int rand = Random.Range(0, 100);
+            foreach(PCharacter toon in SaveGame.current.NPCS)
+            {
+                rand = Random.Range(0, 100);
+                if(rand < 34)
+                {
+                    if(toon.pcStatus == "Ready")
+                    {
+                        toon.pcStatus = "In Dungeon";
+                    }
+                    else
+                    {                        
+                        //Character returns
+                        //Character dies
+                        //Character is mage-severed and returns
+                    }
+                }
+            }
+        }
+
         //TavinsFlagon
         if (TavernPanel.activeSelf)
         {
@@ -86,6 +114,14 @@ public class ThelmoreManager : MonoBehaviour
 
     public void InitThelmore()
     {
+        if(TOWN == null)
+        {
+            TOWN = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         //Initialize time system
         TimeManager.AdvanceTime(0f);
         //Initialize status bar
@@ -199,7 +235,7 @@ public class ThelmoreManager : MonoBehaviour
         GameObject go;
         for (int i = 0; i < SaveAndLoad.savedGames.Count; i++)
         {
-            if (SaveAndLoad.savedGames[i] != SaveGame.current)
+            if (SaveAndLoad.savedGames[i] != SaveGame.current && SaveAndLoad.savedGames[i].GROUP[0].pcStatus == "Ready")
             {
                 go = Instantiate(TavernVCPrefab, TavernCharacterPanelContent.transform);
                 go.GetComponent<TavernCharacterButtonController>().index = i;
@@ -207,6 +243,31 @@ public class ThelmoreManager : MonoBehaviour
                 go.GetComponent<TavernCharacterButtonController>().text2.text = "Best Trait(s): " + SaveAndLoad.savedGames[i].GROUP[0].GetHighestSkills();
                 go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.pcFace[SaveAndLoad.savedGames[i].GROUP[0].face];
             }
+        }
+        for(int i = 0; i < SaveGame.current.NPCS.Count; i++)
+        {
+            if(SaveGame.current.NPCS[i].pcStatus == "Ready")
+            {
+                go = Instantiate(TavernVCPrefab, TavernCharacterPanelContent.transform);
+                go.GetComponent<TavernCharacterButtonController>().index = i + SaveAndLoad.savedGames.Count;
+                go.GetComponent<TavernCharacterButtonController>().text1.text = SaveGame.current.NPCS[i].pcName + " the " + SaveGame.current.NPCS[i].pcType + ", Level " + SaveGame.current.NPCS[i].GetLevel();
+                go.GetComponent<TavernCharacterButtonController>().text2.text = "Best Trait(s): " + SaveGame.current.NPCS[i].GetHighestSkills();
+                if (SaveGame.current.NPCS[i].pcType == "Warrior") go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.npcWarriorFace[SaveGame.current.NPCS[i].face];
+                if (SaveGame.current.NPCS[i].pcType == "Mage") go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.npcMageFace[SaveGame.current.NPCS[i].face];
+                if (SaveGame.current.NPCS[i].pcType == "Rogue") go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.npcRogueFace[SaveGame.current.NPCS[i].face];
+                if (SaveGame.current.NPCS[i].pcType == "Wanderer") go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.pcFace[SaveGame.current.NPCS[i].face];
+            }
+        }
+    }
+    public void MeetCharacterDialogueStart(int index)
+    {
+        if(index < SaveAndLoad.savedGames.Count)
+        {
+            Debug.Log(SaveAndLoad.savedGames[index].GROUP[0].pcName + ", clicked on");
+        }
+        else
+        {
+            Debug.Log(SaveGame.current.NPCS[index-SaveAndLoad.savedGames.Count].pcName + ", clicked on");
         }
     }
 

@@ -41,9 +41,10 @@ public class PCharacter
         baseLevel = str + dex + iq + wis + per + hlth + aura + -1;
     }
 
-    public PCharacter(string nam, string typ, int faceN)
+    public PCharacter(string nam, string typ, string mot, int faceN)
     {
-        pcName = nam; pcType = typ;
+        pcName = nam; pcType = typ; pcMotivation = mot;
+        pcStatus = "Ready";
         face = faceN;
         int maxHP = 5, maxMP = 5;
         if(pcType == "Warrior") { hlth = 5; aura = 3; maxHP = 10; maxMP = 0; }

@@ -8,4 +8,9 @@ public class TavernCharacterButtonController : MonoBehaviour
     public int index;
     public Text text1, text2;
     public Image face;
+
+    public void SendClick()
+    {
+        ThelmoreManager.TOWN.MeetCharacterDialogueStart(index);
+    }
 }
