@@ -261,13 +261,39 @@ public class ThelmoreManager : MonoBehaviour
     }
     public void MeetCharacterDialogueStart(int index)
     {
-        if(index < SaveAndLoad.savedGames.Count)
+        TavernAdventureConversationPanel.SetActive(true);
+
+        if (index < SaveAndLoad.savedGames.Count)
         {
             Debug.Log(SaveAndLoad.savedGames[index].GROUP[0].pcName + ", clicked on");
+            int str = SaveAndLoad.savedGames[index].GROUP[0].str;
+            int dex = SaveAndLoad.savedGames[index].GROUP[0].dex;
+            int iq = SaveAndLoad.savedGames[index].GROUP[0].iq;
+            int wis = SaveAndLoad.savedGames[index].GROUP[0].wis;
+            int per = SaveAndLoad.savedGames[index].GROUP[0].per;
+            int hlth = SaveAndLoad.savedGames[index].GROUP[0].hlth;
+            int aura = SaveAndLoad.savedGames[index].GROUP[0].aura;
+            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().NameText.text = SaveAndLoad.savedGames[index].GROUP[0].pcName + " the " + SaveAndLoad.savedGames[index].GROUP[0].pcType;
+            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().StatText.text = "<color=darkblue>STR " + str + ", </color><color=magenta>DEX " + dex + ", </color><color=silver>IQ " + iq + ", </color><color=yellow>WIS " + wis + "</color> \n <color=green>PER "+per+", </color><color=red>HLTH " +hlth+ ", </color><color=teal>AURA " +aura+ " </color> ";
+            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.pcFace[SaveAndLoad.savedGames[index].GROUP[0].face];
         }
         else
         {
+            int i = index-SaveAndLoad.savedGames.Count;
             Debug.Log(SaveGame.current.NPCS[index-SaveAndLoad.savedGames.Count].pcName + ", clicked on");
+            int str = SaveGame.current.NPCS[i].str;
+            int dex = SaveGame.current.NPCS[i].dex;
+            int iq = SaveGame.current.NPCS[i].iq;
+            int wis = SaveGame.current.NPCS[i].wis;
+            int per = SaveGame.current.NPCS[i].per;
+            int hlth = SaveGame.current.NPCS[i].hlth;
+            int aura = SaveGame.current.NPCS[i].aura;
+            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().NameText.text = SaveGame.current.NPCS[i].pcName + " the " + SaveGame.current.NPCS[i].pcType;
+            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().StatText.text = "<color=darkblue>STR " + str + ", </color><color=magenta>DEX " + dex + ", </color><color=silver>IQ " + iq + ", </color><color=yellow>WIS " + wis + "</color> \n <color=green>PER " + per + ", </color><color=red>HLTH " + hlth + ", </color><color=teal>AURA " + aura + " </color> ";
+            if (SaveGame.current.NPCS[i].pcType == "Warrior") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcWarriorFace[SaveGame.current.NPCS[i].face];
+            if (SaveGame.current.NPCS[i].pcType == "Mage") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcMageFace[SaveGame.current.NPCS[i].face];
+            if (SaveGame.current.NPCS[i].pcType == "Rogue") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcRogueFace[SaveGame.current.NPCS[i].face];
+            if (SaveGame.current.NPCS[i].pcType == "Wanderer") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.pcFace[SaveGame.current.NPCS[i].face];
         }
     }
 
