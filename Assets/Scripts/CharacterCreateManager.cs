@@ -284,7 +284,7 @@ public class CharacterCreateManager : MonoBehaviour
                 //Name
                 tempNam = GameManager.GAME.randomName[Random.Range(0, GameManager.GAME.randomName.Count)];
                 //Type
-                randTyp = Random.Range(1, 3);
+                randTyp = Random.Range(1, 4);
                 if (randTyp == 1) tempTyp = "Warrior"; if (randTyp == 2) tempTyp = "Mage"; if (randTyp == 3) tempTyp = "Rogue";
                 //Motivation
                 randMot = Random.Range(1, 8);
