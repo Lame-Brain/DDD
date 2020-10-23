@@ -12,10 +12,12 @@ public class PCharacter
     public int gold, head, body, legs, arms, hand1, hand2, finger1, finger2, belt, boots, spellbook;
     public bool magicSevered;
     public float magicResist;
+    public int motIndex;
 
     public PCharacter(string nam, string typ, string mot, int in1, int in2, int in3, int in4, int in5, int in6, int in7, int in8)
     {
         pcName = nam; pcType = typ; pcMotivation = mot;
+        motIndex = 1;
         pcStatus = "Ready";
         str = in1;
         dex = in2;

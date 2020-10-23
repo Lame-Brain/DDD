@@ -290,10 +290,12 @@ public class CharacterCreateManager : MonoBehaviour
                 randMot = Random.Range(1, 8);
                 if (randMot == 1) tempMot = "Money"; if (randMot == 2) tempMot = "Power"; if (randMot == 3) tempMot = "Honor"; if (randMot == 4) tempMot = "Glory";
                 if (randMot == 5) tempMot = "Fate"; if (randMot == 6) tempMot = "Duty"; if (randMot == 7) tempMot = "Curiosity"; if (randMot == 4) tempMot = "Bloodlust";
+                randMot = Random.Range(1, 7);
                 //Face
                 randFac = Random.Range(0, 10);
                 //Make NPC
                 NPC[i] = new PCharacter(tempNam, tempTyp, tempMot, randFac);
+                NPC[i].motIndex = randMot;
                 //Add to SaveGame list
                 SaveGame.current.NPCS.Add(NPC[i]);
             }

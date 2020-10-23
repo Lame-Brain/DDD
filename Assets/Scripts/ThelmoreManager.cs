@@ -23,8 +23,7 @@ public class ThelmoreManager : MonoBehaviour
     public GameObject drinkPanel, drinkButton;
     private bool drinkbuttonClicked = false;
 
-
-    private int dayLastAdventurerCheck, monthLastAdventurerCheck, yearLastAdventurerCheck;
+    private int dayLastAdventurerCheck, monthLastAdventurerCheck, yearLastAdventurerCheck, adventurerIndexSelected;
 
     // Start is called before the first frame update
     void Start()
@@ -204,6 +203,8 @@ public class ThelmoreManager : MonoBehaviour
         TavernMusic.Stop();
         TavernAmbience.Stop();
         TavernPanel.SetActive(false);
+        TavernButton.GetComponent<Image>().sprite = Tavern_Dark;
+        InfoText.text = "";
         storeSelected = 0;
     }
     public void TavinsFlagonDrinkButtonReset() {drinkbuttonClicked = false; rumorText.text = ""; }
@@ -260,11 +261,12 @@ public class ThelmoreManager : MonoBehaviour
         }
     }
     public void MeetCharacterDialogueStart(int index)
-    {
+    {        
         TavernAdventureConversationPanel.SetActive(true);
 
         if (index < SaveAndLoad.savedGames.Count)
         {
+            adventurerIndexSelected = index;
             Debug.Log(SaveAndLoad.savedGames[index].GROUP[0].pcName + ", clicked on");
             int str = SaveAndLoad.savedGames[index].GROUP[0].str;
             int dex = SaveAndLoad.savedGames[index].GROUP[0].dex;
@@ -280,6 +282,7 @@ public class ThelmoreManager : MonoBehaviour
         else
         {
             int i = index-SaveAndLoad.savedGames.Count;
+            adventurerIndexSelected = i;
             Debug.Log(SaveGame.current.NPCS[index-SaveAndLoad.savedGames.Count].pcName + ", clicked on");
             int str = SaveGame.current.NPCS[i].str;
             int dex = SaveGame.current.NPCS[i].dex;
@@ -294,8 +297,18 @@ public class ThelmoreManager : MonoBehaviour
             if (SaveGame.current.NPCS[i].pcType == "Mage") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcMageFace[SaveGame.current.NPCS[i].face];
             if (SaveGame.current.NPCS[i].pcType == "Rogue") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcRogueFace[SaveGame.current.NPCS[i].face];
             if (SaveGame.current.NPCS[i].pcType == "Wanderer") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.pcFace[SaveGame.current.NPCS[i].face];
+            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().DialogueText.text = TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().TalktoAdventurers(SaveGame.current.NPCS[i]);
         }
     }
+    public void AddAdventurerToParty() //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< STILL NEED TO SAVE!!!!!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    {
+        Debug.Log("Added " + SaveGame.current.NPCS[adventurerIndexSelected].pcName + " to party");
+        if (SaveGame.current.GROUP.Count < 9)
+        {
+            SaveGame.current.GROUP.Add(SaveGame.current.NPCS[adventurerIndexSelected]);
+            StatusBar.GetComponent<StatusBarManager>().UpdateStatusBar();
+        }
+    } //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< STILL NEED TO SAVE!!!!!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     public void StagNBoarSelected()
     {
