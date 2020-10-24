@@ -13,9 +13,4 @@ public class SaveGame
 
     public  bool thelmoreBank, thelmoreBarracks, thelmoreInn, thelmoreRoad, thelmoreSmith, thelmoreTavern, thelmoreTemple, thelmoreToolShop, thelmoreTownHall, thelmoreVoncar, thelmoreWell;
     public int index;
-
-    //public void StartSaveGame()
-   // {
-        
-    //}
 }

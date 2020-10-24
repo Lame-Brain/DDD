@@ -300,15 +300,17 @@ public class ThelmoreManager : MonoBehaviour
             TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().DialogueText.text = TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().TalktoAdventurers(SaveGame.current.NPCS[i]);
         }
     }
-    public void AddAdventurerToParty() //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< STILL NEED TO SAVE!!!!!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    public void AddAdventurerToParty()
     {
         Debug.Log("Added " + SaveGame.current.NPCS[adventurerIndexSelected].pcName + " to party");
         if (SaveGame.current.GROUP.Count < 9)
         {
+            SaveGame.current.NPCS[adventurerIndexSelected].pcStatus = "In Party";
             SaveGame.current.GROUP.Add(SaveGame.current.NPCS[adventurerIndexSelected]);
             StatusBar.GetComponent<StatusBarManager>().UpdateStatusBar();
+            SaveAndLoad.Save(); Debug.Log("Saving savegame");
         }
-    } //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< STILL NEED TO SAVE!!!!!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    }
 
     public void StagNBoarSelected()
     {

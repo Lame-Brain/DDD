@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class CharacterCreateManager : MonoBehaviour
 {
-    public Sprite[] PCFaces;
     public GameObject FacePanel, buttonPF, FacePickerPanel, ErrorPanel;
     public GameObject[] FaceButton;
     public AudioSource ClickSFX;
@@ -29,7 +28,7 @@ public class CharacterCreateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DisplayFace.sprite = PCFaces[face];
+        DisplayFace.sprite = GameManager.GAME.pcFace[face];
         extraTextOutput.text = "Free Points: " + xtra.ToString();
         strTextOutput.text = "Strength Level " + str.ToString();
         dexTextOutput.text = "Dexterity Level " + dex.ToString();
@@ -55,12 +54,12 @@ public class CharacterCreateManager : MonoBehaviour
         aura = 3;
         xtra = 0;
 
-        FaceButton = new GameObject[PCFaces.Length];
+        FaceButton = new GameObject[GameManager.GAME.pcFace.Length];
 
-        for (int i = 0; i < PCFaces.Length - 1; i++)
+        for (int i = 0; i < GameManager.GAME.pcFace.Length - 1; i++)
         {
             FaceButton[i] = Instantiate(buttonPF, FacePanel.transform);
-            FaceButton[i].GetComponent<Image>().sprite = PCFaces[i];
+            FaceButton[i].GetComponent<Image>().sprite = GameManager.GAME.pcFace[i];
             int x = i; // This fixes the Closure problem.
             FaceButton[i].GetComponent<Button>().onClick.AddListener(() => FacePickerFaceButtonCicked(x));
         }
