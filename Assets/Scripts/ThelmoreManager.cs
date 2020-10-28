@@ -34,6 +34,8 @@ public class ThelmoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("This Game's Index is " + SaveGame.current.index);
+
         //TimeManager.AdvanceTime(0.25f);
         TimeText.text = TimeManager.HOUR + TimeManager.DAY + TimeManager.MONTH;
 
@@ -126,17 +128,17 @@ public class ThelmoreManager : MonoBehaviour
         //Initialize status bar
         StatusBar.GetComponent<StatusBarManager>().UpdateStatusBar();
         //Set Store Button bools based on loaded SaveGame
-        showBank = SaveGame.current.thelmoreBank;
-        showBarracks = SaveGame.current.thelmoreBarracks;
-        showInn = SaveGame.current.thelmoreInn;
-        showRoad = SaveGame.current.thelmoreRoad;
-        showSmith = SaveGame.current.thelmoreSmith;
-        showTavern = SaveGame.current.thelmoreTavern;
-        showTemple = SaveGame.current.thelmoreTemple;
-        showItemShop = SaveGame.current.thelmoreToolShop;
-        showTownHall = SaveGame.current.thelmoreTownHall;
-        showVoncar = SaveGame.current.thelmoreVoncar;
-        showWell = SaveGame.current.thelmoreWell;        
+        showBank = false;  if (SaveGame.current.TAGS.Contains("Thelmore_Bank_Open")) showBank = true;
+        showBarracks = false;  if (SaveGame.current.TAGS.Contains("Thelmore_Barracks_Open")) showBarracks = true;
+        showInn = false;  if (SaveGame.current.TAGS.Contains("Thelmore_Inn_Open")) showInn = true;
+        showRoad = false;  if (SaveGame.current.TAGS.Contains("Thelmore_Road_Open")) showRoad = true;
+        showSmith = false; if (SaveGame.current.TAGS.Contains("Thelmore_Smith_Open")) showSmith = true;
+        showTavern = false; if (SaveGame.current.TAGS.Contains("Thelmore_Tavern_Open")) showTavern = true;
+        showTemple = false;  if (SaveGame.current.TAGS.Contains("Thelmore_Temple_Open")) showTemple = true;
+        showItemShop = false; if (SaveGame.current.TAGS.Contains("Thelmore_Tools_Open")) showItemShop = true;
+        showTownHall = false; if (SaveGame.current.TAGS.Contains("Thelmore_TownHall_Open")) showTownHall = true;
+        showVoncar = false; if (SaveGame.current.TAGS.Contains("Thelmore_Magic_Open")) showVoncar = true;
+        showWell = false; if (SaveGame.current.TAGS.Contains("Thelmore_Well_Open")) showWell = true;
     }
 
     public void NavigateBacktoMainScreen()
@@ -231,26 +233,25 @@ public class ThelmoreManager : MonoBehaviour
     public void MeetCharacters()
     {
         TavernViewCharacterPanel.SetActive(true);
+        //Clear previous panels that hold adventurers
         GameObject[] killThemWithFire = GameObject.FindGameObjectsWithTag("LoadCharacterEntryPanel");
         foreach (GameObject them in killThemWithFire) Destroy(them);
-        GameObject go;
+
+        //Add any new savegames to list of NPCs
         for (int i = 0; i < SaveAndLoad.savedGames.Count; i++)
         {
-            if (SaveAndLoad.savedGames[i] != SaveGame.current && SaveAndLoad.savedGames[i].GROUP[0].pcStatus == "Ready")
+            if (SaveAndLoad.savedGames[i] != SaveGame.current) //exludes current game
             {
-                go = Instantiate(TavernVCPrefab, TavernCharacterPanelContent.transform);
-                go.GetComponent<TavernCharacterButtonController>().index = i;
-                go.GetComponent<TavernCharacterButtonController>().text1.text = SaveAndLoad.savedGames[i].GROUP[0].pcName + " the " + SaveAndLoad.savedGames[i].GROUP[0].pcType + ", Level " + SaveAndLoad.savedGames[i].GROUP[0].GetLevel();
-                go.GetComponent<TavernCharacterButtonController>().text2.text = "Best Trait(s): " + SaveAndLoad.savedGames[i].GROUP[0].GetHighestSkills();
-                go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.pcFace[SaveAndLoad.savedGames[i].GROUP[0].face];
+                if (!SaveGame.current.NPCS.Contains(SaveAndLoad.savedGames[i].GROUP[0])) SaveGame.current.NPCS.Add(SaveAndLoad.savedGames[i].GROUP[0]); //If other savegame main characters are not on the NPC list, add them
             }
         }
-        for(int i = 0; i < SaveGame.current.NPCS.Count; i++)
+        GameObject go;
+        for (int i = 0; i < SaveGame.current.NPCS.Count; i++)
         {
             if(SaveGame.current.NPCS[i].pcStatus == "Ready")
             {
                 go = Instantiate(TavernVCPrefab, TavernCharacterPanelContent.transform);
-                go.GetComponent<TavernCharacterButtonController>().index = i + SaveAndLoad.savedGames.Count;
+                go.GetComponent<TavernCharacterButtonController>().index = i;
                 go.GetComponent<TavernCharacterButtonController>().text1.text = SaveGame.current.NPCS[i].pcName + " the " + SaveGame.current.NPCS[i].pcType + ", Level " + SaveGame.current.NPCS[i].GetLevel();
                 go.GetComponent<TavernCharacterButtonController>().text2.text = "Best Trait(s): " + SaveGame.current.NPCS[i].GetHighestSkills();
                 if (SaveGame.current.NPCS[i].pcType == "Warrior") go.GetComponent<TavernCharacterButtonController>().face.sprite = GameManager.GAME.npcWarriorFace[SaveGame.current.NPCS[i].face];
@@ -263,42 +264,21 @@ public class ThelmoreManager : MonoBehaviour
     public void MeetCharacterDialogueStart(int index)
     {        
         TavernAdventureConversationPanel.SetActive(true);
-
-        if (index < SaveAndLoad.savedGames.Count)
-        {
-            adventurerIndexSelected = index;
-            Debug.Log(SaveAndLoad.savedGames[index].GROUP[0].pcName + ", clicked on");
-            int str = SaveAndLoad.savedGames[index].GROUP[0].str;
-            int dex = SaveAndLoad.savedGames[index].GROUP[0].dex;
-            int iq = SaveAndLoad.savedGames[index].GROUP[0].iq;
-            int wis = SaveAndLoad.savedGames[index].GROUP[0].wis;
-            int per = SaveAndLoad.savedGames[index].GROUP[0].per;
-            int hlth = SaveAndLoad.savedGames[index].GROUP[0].hlth;
-            int aura = SaveAndLoad.savedGames[index].GROUP[0].aura;
-            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().NameText.text = SaveAndLoad.savedGames[index].GROUP[0].pcName + " the " + SaveAndLoad.savedGames[index].GROUP[0].pcType;
-            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().StatText.text = "<color=darkblue>STR " + str + ", </color><color=magenta>DEX " + dex + ", </color><color=silver>IQ " + iq + ", </color><color=yellow>WIS " + wis + "</color> \n <color=green>PER "+per+", </color><color=red>HLTH " +hlth+ ", </color><color=teal>AURA " +aura+ " </color> ";
-            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.pcFace[SaveAndLoad.savedGames[index].GROUP[0].face];
-        }
-        else
-        {
-            int i = index-SaveAndLoad.savedGames.Count;
-            adventurerIndexSelected = i;
-            Debug.Log(SaveGame.current.NPCS[index-SaveAndLoad.savedGames.Count].pcName + ", clicked on");
-            int str = SaveGame.current.NPCS[i].str;
-            int dex = SaveGame.current.NPCS[i].dex;
-            int iq = SaveGame.current.NPCS[i].iq;
-            int wis = SaveGame.current.NPCS[i].wis;
-            int per = SaveGame.current.NPCS[i].per;
-            int hlth = SaveGame.current.NPCS[i].hlth;
-            int aura = SaveGame.current.NPCS[i].aura;
-            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().NameText.text = SaveGame.current.NPCS[i].pcName + " the " + SaveGame.current.NPCS[i].pcType;
-            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().StatText.text = "<color=darkblue>STR " + str + ", </color><color=magenta>DEX " + dex + ", </color><color=silver>IQ " + iq + ", </color><color=yellow>WIS " + wis + "</color> \n <color=green>PER " + per + ", </color><color=red>HLTH " + hlth + ", </color><color=teal>AURA " + aura + " </color> ";
-            if (SaveGame.current.NPCS[i].pcType == "Warrior") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcWarriorFace[SaveGame.current.NPCS[i].face];
-            if (SaveGame.current.NPCS[i].pcType == "Mage") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcMageFace[SaveGame.current.NPCS[i].face];
-            if (SaveGame.current.NPCS[i].pcType == "Rogue") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcRogueFace[SaveGame.current.NPCS[i].face];
-            if (SaveGame.current.NPCS[i].pcType == "Wanderer") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.pcFace[SaveGame.current.NPCS[i].face];
-            TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().DialogueText.text = TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().TalktoAdventurers(SaveGame.current.NPCS[i]);
-        }
+        adventurerIndexSelected = index;
+        int str = SaveGame.current.NPCS[index].str;
+        int dex = SaveGame.current.NPCS[index].dex;
+        int iq = SaveGame.current.NPCS[index].iq;
+        int wis = SaveGame.current.NPCS[index].wis;
+        int per = SaveGame.current.NPCS[index].per;
+        int hlth = SaveGame.current.NPCS[index].hlth;
+        int aura = SaveGame.current.NPCS[index].aura;
+        TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().NameText.text = SaveGame.current.NPCS[index].pcName + " the " + SaveGame.current.NPCS[index].pcType;
+        TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().StatText.text = "<color=darkblue>STR " + str + ", </color><color=magenta>DEX " + dex + ", </color><color=silver>IQ " + iq + ", </color><color=yellow>WIS " + wis + "</color> \n <color=green>PER " + per + ", </color><color=red>HLTH " + hlth + ", </color><color=teal>AURA " + aura + " </color> ";
+        TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.pcFace[SaveGame.current.NPCS[index].face];
+        if (SaveGame.current.NPCS[index].pcType == "Warrior") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcWarriorFace[SaveGame.current.NPCS[index].face];
+        if (SaveGame.current.NPCS[index].pcType == "Mage") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcMageFace[SaveGame.current.NPCS[index].face];
+        if (SaveGame.current.NPCS[index].pcType == "Rogue") TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().faceImage.sprite = GameManager.GAME.npcRogueFace[SaveGame.current.NPCS[index].face];
+        TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().DialogueText.text = TavernAdventureConversationPanel.GetComponent<MeetThePeeps>().TalktoAdventurers(SaveGame.current.NPCS[index]);        
     }
     public void AddAdventurerToParty()
     {

@@ -92,6 +92,7 @@ public class MeetThePeeps : MonoBehaviour
             if (speaker.motIndex == 6) output = "Just keep killing, just keep killing, La la la la la la la!  Everything will be okay!";
             if (speaker.motIndex == 7) output = "Nobility means nothing without strength. What good is noble spirit if you do not kill everything that stands against you? What good is duty, if you do not remove anything that could keep you to it? What good is honor if you do not wash every stain from it with the blood of your enemies? No, it is clear… being Noble means making other people die.";
         }
+        output = "I belong to SaveGame # " + speaker.SaveGameID;
         return output;
     }
 }

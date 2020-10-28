@@ -15,7 +15,17 @@ public static class SaveAndLoad
             savedGames.Clear();
             Load();
         }
-        savedGames.Add(SaveGame.current);
+        if (SaveGame.current.index == -1) //if this is a brand new savegame, assign last index
+        {
+            if(savedGames.Count == 0) SaveGame.current.index = 0;
+            if (savedGames.Count > 0) SaveGame.current.index = savedGames[savedGames.Count - 1].index + 1;
+            Debug.Log("Assigning this game index: " + SaveGame.current.index);
+            savedGames.Add(SaveGame.current);
+        }
+        else //... otherwise, save over previous slot
+        {
+            savedGames[SaveGame.current.index] = SaveGame.current;
+        }
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saves.ddd");
         bf.Serialize(file, SaveAndLoad.savedGames);
@@ -24,7 +34,6 @@ public static class SaveAndLoad
 
     public static void UpdateSave()
     {
-        foreach (SaveGame toon in savedGames) toon.index = savedGames.IndexOf(toon);
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/saves.ddd");
         bf.Serialize(file, SaveAndLoad.savedGames);

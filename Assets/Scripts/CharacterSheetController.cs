@@ -12,8 +12,11 @@ public class CharacterSheetController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         characterPortrait.sprite = GameManager.GAME.pcFace[SaveGame.current.GROUP[index].face];
+        if (SaveGame.current.GROUP[index].pcType == "Warrior") characterPortrait.sprite = GameManager.GAME.npcWarriorFace[SaveGame.current.GROUP[index].face];
+        if (SaveGame.current.GROUP[index].pcType == "Mage") characterPortrait.sprite = GameManager.GAME.npcMageFace[SaveGame.current.GROUP[index].face];
+        if (SaveGame.current.GROUP[index].pcType == "Rogue") characterPortrait.sprite = GameManager.GAME.npcRogueFace[SaveGame.current.GROUP[index].face];
         name_typeText.text = SaveGame.current.GROUP[index].pcName + " the " + SaveGame.current.GROUP[index].pcType;
         strText.text = "Strength is <color=black>" + SaveGame.current.GROUP[index].str + "</color>";
         dexText.text = "Dexterity is <color=black>" + SaveGame.current.GROUP[index].dex + "</color>";

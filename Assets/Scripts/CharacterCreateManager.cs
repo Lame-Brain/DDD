@@ -267,10 +267,13 @@ public class CharacterCreateManager : MonoBehaviour
             PCharacter pc = new PCharacter(pcName, pcType, pcMotivation, str, dex, iq, wis, per, hlth, aura, face);
             SaveGame.current = new SaveGame(); Debug.Log("Setting up new save game slot");
             SaveGame.current.GROUP.Add(pc); Debug.Log("adding PC to group");
-            SaveGame.current.thelmoreBank = true; SaveGame.current.thelmoreBarracks = false; SaveGame.current.thelmoreInn = true; 
-                SaveGame.current.thelmoreRoad = false; SaveGame.current.thelmoreSmith = true; SaveGame.current.thelmoreTavern = true; 
-                    SaveGame.current.thelmoreTemple = true; SaveGame.current.thelmoreToolShop = true; SaveGame.current.thelmoreTownHall = false; 
-                        SaveGame.current.thelmoreVoncar = true; SaveGame.current.thelmoreWell = true; Debug.Log("Started bools");
+            SaveGame.current.index = -1;
+            //Initial Tags
+            SaveGame.current.TAGS.Add("Thelmore_Tavern_Open");
+            /*            SaveGame.current.thelmoreBank = true; SaveGame.current.thelmoreBarracks = false; SaveGame.current.thelmoreInn = true; 
+                            SaveGame.current.thelmoreRoad = false; SaveGame.current.thelmoreSmith = true; SaveGame.current.thelmoreTavern = true; 
+                                SaveGame.current.thelmoreTemple = true; SaveGame.current.thelmoreToolShop = true; SaveGame.current.thelmoreTownHall = false; 
+                                    SaveGame.current.thelmoreVoncar = true; SaveGame.current.thelmoreWell = true; Debug.Log("Started bools"); */
 
             //load rumors
             SaveAndLoad.LoadDefaultRumorList();
